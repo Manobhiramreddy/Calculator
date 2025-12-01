@@ -38,8 +38,8 @@ pipeline {
         success {
             echo "Build complete. Packaged JAR available as artifact."
         }
-        cleanup {
-            cleanWs()
+        failure {
+            echo "Build Failed."
         }
     }
 }
