@@ -14,7 +14,7 @@ pipeline {
 
         stage('Compile') {
             steps {
-                sh '''
+                bat '''
                     mkdir -p build
                     javac -d build Calculator.java
                 '''
@@ -23,7 +23,7 @@ pipeline {
 
         stage('Package') {
             steps {
-                sh '''
+                bat '''
                     mkdir -p dist
                     echo "Main-Class: Calculator" > manifest.txt
                     jar cfm dist/calculator.jar manifest.txt -C build .
