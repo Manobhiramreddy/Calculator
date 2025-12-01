@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK17'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -15,7 +11,7 @@ pipeline {
         stage('Compile') {
             steps {
                 bat '''
-                    mkdir -p build
+                    if not exist build mkdir build
                     javac -d build Calculator.java
                 '''
             }
@@ -24,9 +20,9 @@ pipeline {
         stage('Package') {
             steps {
                 bat '''
-                    mkdir -p dist
-                    echo "Main-Class: Calculator" > manifest.txt
-                    jar cfm dist/calculator.jar manifest.txt -C build .
+                    if not exist dist mkdir dist
+                    echo Main-Class: Calculator > manifest.txt
+                    jar cfm dist\\calculator.jar manifest.txt -C build .
                 '''
             }
         }
