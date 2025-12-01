@@ -1,13 +1,11 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-
         stage('Compile') {
             steps {
                 bat '''
@@ -16,7 +14,6 @@ pipeline {
                 '''
             }
         }
-
         stage('Package') {
             steps {
                 bat '''
@@ -26,14 +23,12 @@ pipeline {
                 '''
             }
         }
-
         stage('Archive Artifact') {
             steps {
                 archiveArtifacts artifacts: 'dist/calculator.jar', fingerprint: true
             }
         }
     }
-
     post {
         success {
             echo "Build complete. Packaged JAR available as artifact."
